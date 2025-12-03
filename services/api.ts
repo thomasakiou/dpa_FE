@@ -45,11 +45,16 @@ api.interceptors.response.use(
 
         // Handle global errors
         if (error.response) {
-            // 401 Unauthorized - Redirect to login
+            // 401 Unauthorized - Redirect to login (but not if already on login page)
             if (error.response.status === 401) {
+                console.log('401 Unauthorized - clearing auth and redirecting to login');
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
-                window.location.href = '/login';
+
+                // Only redirect if not already on login page to prevent reload loop
+                if (!window.location.pathname.includes('/login') && window.location.pathname !== '/') {
+                    window.location.href = '/';
+                }
             }
 
             // Show error toast if window.showErrorToast is available
