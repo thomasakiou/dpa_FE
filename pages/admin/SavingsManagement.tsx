@@ -90,6 +90,7 @@ const SavingsManagement: React.FC = () => {
             console.log('Sending savings data:', data);
             await savingsService.createSavings(data);
             await fetchData();
+            setCurrentPage(1); // Reset to page 1 to see the new record
             setIsAddModalOpen(false);
             toast.success('Savings record created successfully!');
         } catch (err: any) {
@@ -104,6 +105,7 @@ const SavingsManagement: React.FC = () => {
                     created_at: new Date().toISOString()
                 };
                 setSavings([newRecord, ...savings]);
+                setCurrentPage(1); // Reset to page 1 for mock as well
                 setIsAddModalOpen(false);
                 alert('Backend missing. Mock record created successfully!');
             } else if (err.response && err.response.status === 422) {
