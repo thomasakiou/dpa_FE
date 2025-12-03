@@ -52,7 +52,7 @@ api.interceptors.response.use(
                 localStorage.removeItem('user');
 
                 // Only redirect if not already on login page to prevent reload loop
-                if (!window.location.pathname.includes('/login') && window.location.pathname !== '/') {
+                if (window.location.pathname !== '/') {
                     window.location.href = '/';
                 }
             }
