@@ -7,30 +7,24 @@ type LoanResponse = components['schemas']['LoanResponse'];
 type LoanCreate = components['schemas']['LoanCreate'];
 
 export const financeService = {
-    getSavings: async (skip = 0, limit = 100) => {
-        const response = await api.get<SavingsPaymentResponse[]>('/api/v1/savings/me', {
-            params: { skip, limit },
-        });
+    getSavings: async () => {
+        const response = await api.get<SavingsPaymentResponse[]>('/api/v1/savings/me');
         return response.data;
     },
     getSavingsSummary: async () => {
         const response = await api.get('/api/v1/savings/me/sum');
         return response.data;
     },
-    getShares: async (skip = 0, limit = 100) => {
-        const response = await api.get<ShareResponse[]>('/api/v1/shares/me', {
-            params: { skip, limit },
-        });
+    getShares: async () => {
+        const response = await api.get<ShareResponse[]>('/api/v1/shares/me');
         return response.data;
     },
     getSharesSummary: async () => {
         const response = await api.get('/api/v1/shares/me/summary');
         return response.data;
     },
-    getLoans: async (skip = 0, limit = 100) => {
-        const response = await api.get<LoanResponse[]>('/api/v1/loans/me', {
-            params: { skip, limit },
-        });
+    getLoans: async () => {
+        const response = await api.get<LoanResponse[]>('/api/v1/loans/me');
         return response.data;
     },
     applyLoan: async (data: LoanCreate) => {

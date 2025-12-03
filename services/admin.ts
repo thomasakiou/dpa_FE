@@ -9,10 +9,8 @@ type SavingsResponse = components['schemas']['SavingsResponse'];
 
 export const adminService = {
     // User Management
-    getAllUsers: async (skip: number = 0, limit: number = 100) => {
-        const response = await api.get<UserResponse[]>('/api/v1/admin/users', {
-            params: { skip, limit }
-        });
+    getAllUsers: async () => {
+        const response = await api.get<UserResponse[]>('/api/v1/admin/users');
         return response.data;
     },
     createUser: async (data: UserCreate) => {
@@ -33,7 +31,7 @@ export const adminService = {
     },
     resetPassword: async (email: string) => {
         // 1. Find user by email
-        const users = await adminService.getAllUsers(0, 1000);
+        const users = await adminService.getAllUsers();
         const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
         if (!user) {
@@ -72,25 +70,19 @@ export const loansService = {
         const response = await api.post<LoanResponse>('/api/v1/loans/apply', data);
         return response.data;
     },
-    getMyLoans: async (skip: number = 0, limit: number = 100) => {
-        const response = await api.get<LoanResponse[]>('/api/v1/loans/me', {
-            params: { skip, limit }
-        });
+    getMyLoans: async () => {
+        const response = await api.get<LoanResponse[]>('/api/v1/loans/me');
         return response.data;
     },
-    getAllLoans: async (skip: number = 0, limit: number = 100) => {
-        const response = await api.get<LoanResponse[]>('/api/v1/admin/loans', {
-            params: { skip, limit }
-        });
+    getAllLoans: async () => {
+        const response = await api.get<LoanResponse[]>('/api/v1/admin/loans');
         return response.data;
     },
 };
 
 export const savingsService = {
-    getAllSavings: async (skip: number = 0, limit: number = 100) => {
-        const response = await api.get<SavingsResponse[]>('/api/v1/admin/savings', {
-            params: { skip, limit }
-        });
+    getAllSavings: async () => {
+        const response = await api.get<SavingsResponse[]>('/api/v1/admin/savings');
         return response.data;
     },
     createSavings: async (data: any) => {
@@ -107,10 +99,8 @@ export const savingsService = {
 };
 
 export const sharesService = {
-    getAllShares: async (skip: number = 0, limit: number = 100) => {
-        const response = await api.get('/api/v1/admin/shares', {
-            params: { skip, limit }
-        });
+    getAllShares: async () => {
+        const response = await api.get('/api/v1/admin/shares');
         return response.data;
     },
     createShare: async (data: any) => {
