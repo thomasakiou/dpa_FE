@@ -29,16 +29,15 @@ git push -u origin main
 3. Choose your Git provider and select your repository
 4. Netlify will auto-detect the build settings from `netlify.toml`
 
-### 3. Configure Environment Variables
-
-In Netlify dashboard:
-1. Go to **Site settings** → **Environment variables**
-2. Add the following variables:
-   - `VITE_API_BASE_URL`: Your backend API URL (e.g., `https://api.yourdomain.com/api/v1`)
-
-### 4. Deploy
+### 3. Deploy
 
 Click "Deploy site" - Netlify will:
+- Read configuration from `netlify.toml` (including environment variables)
+- Install dependencies (`npm install`)
+- Build your project (`npm run build`)
+- Deploy the `dist` folder
+
+> **Note**: The backend API URL is already configured in `netlify.toml`. No need to set environment variables manually in the dashboard!
 - Install dependencies (`npm install`)
 - Build your project (`npm run build`)
 - Deploy the `dist` folder
