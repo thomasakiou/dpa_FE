@@ -22,15 +22,23 @@ const Login: React.FC = () => {
 
     setLoading(true);
     try {
+      console.log('Attempting login with API URL:', import.meta.env.VITE_API_URL || 'http://localhost:8000');
       const user = await login({ identifier: email, password });
+      console.log('Login successful, user role:', user.role);
+
       if (user.role === UserRole.ADMIN) {
+        console.log('Navigating to /admin');
         navigate('/admin');
       } else {
+        console.log('Navigating to /member');
         navigate('/member');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login failed', error);
-      toast.error('Login failed. Please check your credentials.');
+      console.error('Error details:', error.response?.data || error.message);
+
+      const errorMessage = error.response?.data?.detail || error.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMessage);
       setLoading(false);
     }
   };
